@@ -1,4 +1,4 @@
-package Hibernate.Entity;
+package Hibernate.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -73,12 +73,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", department='" + department + '\'' +
-                ", salary=" + salary +
-                '}';
+        return id + "| " + name +  " | " + surname + "| " + department + " | " + salary;
     }
 }
