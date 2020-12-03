@@ -4,6 +4,8 @@ import Hibernate.entity.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import javax.persistence.Query;
 import java.util.List;
 
 public class Main {
@@ -14,7 +16,7 @@ public class Main {
                 .buildSessionFactory();
 
         Session session = factory.getCurrentSession();
-        getAll(session).forEach(System.out::println);
+        updateDepartmentByID(session, "HR", 1);
     }
 
     private static void save(Employee employee, Session session) {
@@ -35,5 +37,21 @@ public class Main {
         List<Employee> result = session.createQuery("from Employee").getResultList();
         session.getTransaction().commit();
         return result;
+    }
+
+    private static void updateSalary(Session session, int id, int salary) {
+        session.beginTransaction();
+        Employee whoUpdated = session.get(Employee.class, id);
+        whoUpdated.setSalary(salary);
+        session.getTransaction().commit();
+    }
+
+    private static void updateDepartmentByID(Session session, String newDepartment, int id) {
+        session.beginTransaction();
+        Query query = session.createQuery("update Employee set department = :param1 where id = :param2");
+                query.setParameter("param1", newDepartment);
+                query.setParameter("param2", id);
+                query.executeUpdate();
+        session.getTransaction().commit();
     }
 }
