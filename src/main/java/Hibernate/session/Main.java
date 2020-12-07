@@ -16,7 +16,7 @@ public class Main {
                 .buildSessionFactory();
 
         Session session = factory.getCurrentSession();
-        updateDepartmentByID(session, "HR", 1);
+        save(new Employee("Darya", "Tarasova", "Beautiful voice <3", 100_000_000), session);
     }
 
     private static void save(Employee employee, Session session) {
@@ -52,6 +52,13 @@ public class Main {
                 query.setParameter("param1", newDepartment);
                 query.setParameter("param2", id);
                 query.executeUpdate();
+        session.getTransaction().commit();
+    }
+
+    private static void deleteByID(Session session, int id) {
+        session.beginTransaction();
+        Employee employee = session.get(Employee.class, id);
+        session.delete(employee);
         session.getTransaction().commit();
     }
 }
