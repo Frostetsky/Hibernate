@@ -16,7 +16,7 @@ public class Main {
                 .buildSessionFactory();
 
         Session session = factory.getCurrentSession();
-        save(new Employee("Darya", "Tarasova", "Beautiful voice <3", 100_000_000), session);
+        deleteBySalary(session, 300_000);
     }
 
     private static void save(Employee employee, Session session) {
@@ -59,6 +59,14 @@ public class Main {
         session.beginTransaction();
         Employee employee = session.get(Employee.class, id);
         session.delete(employee);
+        session.getTransaction().commit();
+    }
+
+    private static void deleteBySalary(Session session, int salary) {
+        session.beginTransaction();
+        Query query = session.createQuery("delete Employee where salary > :param1");
+        query.setParameter("param1", salary);
+        query.executeUpdate();
         session.getTransaction().commit();
     }
 }
