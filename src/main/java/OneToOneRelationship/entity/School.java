@@ -16,6 +16,9 @@ public class School {
     @Column(name = "description")
     private String description;
 
+    @OneToOne(mappedBy = "school", cascade = CascadeType.ALL)
+    private Director director;
+
     public School() {
     }
 
@@ -46,6 +49,14 @@ public class School {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
+
+    public void setDirector(Director director) {
+        this.director = director;
     }
 
     @Override
