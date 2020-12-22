@@ -20,7 +20,11 @@ public class Person {
     @Column(name = "age")
     private int age;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.REFRESH,
+            CascadeType.MERGE,
+            CascadeType.DETACH})
     @JoinColumn(name = "country_id")
     private Country country;
 
