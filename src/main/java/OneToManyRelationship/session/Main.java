@@ -29,7 +29,6 @@ public class Main {
         */
 
         Session session = sf.getCurrentSession();
-        deletePerson(session, 3);
     }
 
     private static void save(Session session, Country country) {
