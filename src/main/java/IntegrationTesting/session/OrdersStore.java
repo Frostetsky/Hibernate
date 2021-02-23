@@ -1,7 +1,7 @@
 package IntegrationTesting.session;
 
 import IntegrationTesting.entity.Order;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +21,7 @@ public class OrdersStore {
     public Order save(Order order) {
         try (Connection con = pool.getConnection();
              PreparedStatement pr = con.prepareStatement(
-                     "INSERT INTO orders(name, description, created) VALUES (?, ?, ?)",
+                     "INSERT INTO tests(name, description, created) VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             pr.setString(1, order.getName());
             pr.setString(2, order.getDescription());
@@ -40,7 +40,7 @@ public class OrdersStore {
     public boolean replace(Integer id, Order order) {
         boolean rsl = false;
         try (   Connection con = pool.getConnection();
-                PreparedStatement st = con.prepareStatement("UPDATE orders SET name = ?, description = ? WHERE orders.id = ?")) {
+                PreparedStatement st = con.prepareStatement("UPDATE tests SET name = ?, description = ? WHERE tests.id = ?")) {
             st.setString(1, order.getName());
             st.setString(2, order.getDescription());
             st.setInt(3, id);
@@ -56,7 +56,7 @@ public class OrdersStore {
     public Collection<Order> findAll() {
         List<Order> rsl = new ArrayList<>();
         try (Connection con = pool.getConnection();
-             PreparedStatement pr = con.prepareStatement("SELECT * FROM orders")) {
+             PreparedStatement pr = con.prepareStatement("SELECT * FROM tests")) {
             try (ResultSet rs = pr.executeQuery()) {
                 while (rs.next()) {
                     rsl.add(
@@ -78,7 +78,7 @@ public class OrdersStore {
     public List<Order> findByName(String key) {
         List<Order> result = new ArrayList<>();
         try (Connection con = pool.getConnection();
-             PreparedStatement st = con.prepareStatement("SELECT * FROM orders WHERE name = ?")) {
+             PreparedStatement st = con.prepareStatement("SELECT * FROM tests WHERE name = ?")) {
             st.setString(1, key);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -97,7 +97,7 @@ public class OrdersStore {
     public Order findById(int id) {
         Order rsl = null;
         try (Connection con = pool.getConnection();
-             PreparedStatement pr = con.prepareStatement("SELECT * FROM orders WHERE id = ?")) {
+             PreparedStatement pr = con.prepareStatement("SELECT * FROM tests WHERE id = ?")) {
             pr.setInt(1, id);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {

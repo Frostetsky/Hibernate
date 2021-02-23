@@ -1,7 +1,8 @@
 package IntegrationTesting.session;
 
 import IntegrationTesting.entity.Order;
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class OrdersStoreTest {
         pool.setUrl("jdbc:hsqldb:mem:tests;sql.syntax_pgs=true");
         pool.setUsername("sa");
         pool.setPassword("");
-        pool.setMaxActive(2);
+        pool.setMaxTotal(2);
         StringBuilder builder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream("src/main/java/IntegrationTesting/database/update.sql")))
@@ -34,6 +36,20 @@ public class OrdersStoreTest {
             e.printStackTrace();
         }
         pool.getConnection().prepareStatement(builder.toString()).executeUpdate();
+    }
+
+    @After
+    public void deleteTable() {
+        try {
+        pool.setDriverClassName("org.hsqldb.jdbcDriver");
+        pool.setUrl("jdbc:hsqldb:mem:tests;sql.syntax_pgs=true");
+        pool.setUsername("sa");
+        pool.setPassword("");
+        pool.setMaxTotal(2);
+        pool.getConnection().prepareStatement("DROP TABLE tests").executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
