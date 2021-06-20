@@ -1,8 +1,5 @@
-Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт.
-Найти скорости таких ПК-блокнотов.
-Вывод: производитель, скорость.
+Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
 
-SELECT DISTINCT MAKER, Laptop.speed
-FROM Product INNER JOIN Laptop
-ON Product.model = Laptop.model
-WHERE hd >= 10
+SELECT model, speed, hd
+FROM PC
+WHERE (cd = '12x' OR cd = '24x') AND price < 600
