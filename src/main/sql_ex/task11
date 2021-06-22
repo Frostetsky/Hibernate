@@ -1,2 +1,4 @@
+Найдите среднюю скорость ПК.
+
 SELECT AVG(speed) AS middle_speed
 FROM PC
