@@ -1,0 +1,2 @@
+SELECT AVG(speed) AS middle_speed
+FROM PC
