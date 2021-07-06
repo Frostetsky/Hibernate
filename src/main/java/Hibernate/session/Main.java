@@ -11,7 +11,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         final SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+                        .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Employee.class)
                 .buildSessionFactory();
 
