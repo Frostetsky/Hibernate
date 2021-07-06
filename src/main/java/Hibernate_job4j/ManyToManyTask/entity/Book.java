@@ -20,7 +20,7 @@ public class Book {
             name = "authors_books",
             joinColumns = @JoinColumn(name = "books_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
-    List<Author> authors = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }

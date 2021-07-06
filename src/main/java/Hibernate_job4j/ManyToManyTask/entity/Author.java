@@ -23,7 +23,7 @@ public class Author {
             name = "authors_books",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "books_id"))
-    List<Book> books = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
 
     public Author(String name) {
         this.name = name;
