@@ -20,6 +20,9 @@ public class Candidate {
     @Column(name = "salary")
     Integer salary;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    BaseVacancies baseVacancies;
+
     public Candidate() {
     }
 
@@ -59,6 +62,14 @@ public class Candidate {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+    public BaseVacancies getBaseVacancies() {
+        return baseVacancies;
+    }
+
+    public void setBaseVacancies(BaseVacancies baseVacancies) {
+        this.baseVacancies = baseVacancies;
     }
 
     @Override
