@@ -16,7 +16,7 @@ public class Main {
                 .buildSessionFactory();
 
         Session session = factory.getCurrentSession();
-        deleteBySalary(session, 300_000);
+        save(new Employee("а", "а", "а", 15), session);
     }
 
     private static void save(Employee employee, Session session) {
@@ -32,6 +32,7 @@ public class Main {
         return employee;
     }
 
+    @SuppressWarnings("unchecked")
     private static List<Employee> getAll(Session session) {
         session.beginTransaction();
         List<Employee> result = session.createQuery("from Employee").getResultList();

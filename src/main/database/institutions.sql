@@ -12,3 +12,4 @@ create table director(
     school_id int,
     foreign key (school_id) references school
 );
+

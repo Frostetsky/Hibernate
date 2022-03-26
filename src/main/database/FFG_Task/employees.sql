@@ -14,8 +14,9 @@ having count(employee.id) < 3;
 Суммы необходимо считать только по тем договорам, которые платили и основной долг и проценты.
 Результат предоставить в виде: id договора, сумма платежей по основному долгу, сумма платежей по процентам.
 ================================================================
-SELECT payments_principal.agr_id,SUM(payments_principal.payment_sum) AS main_money,
+SELECT payments_principal.agr_id, SUM(payments_principal.payment_sum) AS main_money,
 SUM(payments_interest.payment_sum) AS procent_money
 FROM payments_principal INNER JOIN payments_interest ON payments_interest.agr_id = payments_principal.agr_id
 GROUP BY agr_id;
 ================================================================
+
